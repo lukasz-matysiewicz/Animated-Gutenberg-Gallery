@@ -61,3 +61,16 @@
 .wp-block-image {
     cursor: pointer;
 }
+
+.wp-block-image {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
+    transition: box-shadow 0.3s ease;
+}
+
+.wp-block-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}

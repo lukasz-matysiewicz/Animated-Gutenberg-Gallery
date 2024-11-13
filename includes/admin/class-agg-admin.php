@@ -10,6 +10,7 @@ namespace AGG\Admin;
 class AGG_Admin {
     public function __construct() {
         add_action('admin_menu', [$this, 'add_plugin_admin_menu']);
+        add_action('admin_init', [$this, 'register_settings']);
     }
 
     public function add_plugin_admin_menu() {
@@ -22,6 +23,10 @@ class AGG_Admin {
             'dashicons-format-gallery',
             30
         );
+    }
+
+    public function register_settings() {
+        register_setting('agg_options', 'agg_settings');
     }
 
     public function display_plugin_admin_page() {

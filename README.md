@@ -46,6 +46,12 @@ For support inquiries:
 - Website: https://matysiewicz.studio
 
 ## Version History
+wersje jezykowe
+detect classy -product page
+key detect
+- 1.0.3: Add hover effects
+- 1.0.2: Add fade in effects
+- 1.0.1: Add lightbox functionality
 - 1.0.0: Initial release
 
 ## Credits
