@@ -9,102 +9,118 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Get plugin settings with defaults
 $settings = get_option('agg_settings', array(
-    'animation_type' => 'fade-up',
+    'animation_type' => 'zoom',
     'animation_duration' => 1,
-    'animation_stagger' => 0.2
+    'animation_stagger' => 0.2,
+    'hover_effect' => 'zoom'
 ));
 ?>
 
-<div class="wrap">
-    <div class="agg-admin-header">
-        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-    </div>
+<div class="wrap agg-admin-wrap">
+    <h1 class="agg-admin-title"><?php echo esc_html(get_admin_page_title()); ?></h1>
 
-    <form method="post" action="options.php" id="agg-settings-form" class="agg-settings-form">
-        <?php
-        settings_fields('agg_options');
-        do_settings_sections('agg_options');
-        ?>
+    <form method="post" action="options.php">
+        <?php settings_fields('agg_options'); ?>
 
-        <div class="agg-settings-group">
-            <table class="form-table" role="presentation">
-                <tr>
-                    <th scope="row">
-                        <?php esc_html_e('Animation Effect', 'animate-gutenberg-gallery'); ?>
-                    </th>
-                    <td>
-                        <select name="agg_settings[animation_type]">
-                            <option value="fade" <?php selected($settings['animation_type'], 'fade'); ?>>
-                                <?php esc_html_e('Fade In', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                            <option value="fade-up" <?php selected($settings['animation_type'], 'fade-up'); ?>>
-                                <?php esc_html_e('Fade Up', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                            <option value="fade-left" <?php selected($settings['animation_type'], 'fade-left'); ?>>
-                                <?php esc_html_e('Fade Left', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                            <option value="zoom" <?php selected($settings['animation_type'], 'zoom'); ?>>
-                                <?php esc_html_e('Zoom In', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <?php esc_html_e('Animation Duration (seconds)', 'animate-gutenberg-gallery'); ?>
-                    </th>
-                    <td>
-                        <input 
-                            type="number" 
-                            name="agg_settings[animation_duration]" 
-                            value="<?php echo esc_attr($settings['animation_duration']); ?>"
-                            step="0.1"
-                            min="0.1"
-                            max="3"
-                        >
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <?php esc_html_e('Stagger Delay (seconds)', 'animate-gutenberg-gallery'); ?>
-                    </th>
-                    <td>
-                        <input 
-                            type="number" 
-                            name="agg_settings[animation_stagger]" 
-                            value="<?php echo esc_attr($settings['animation_stagger']); ?>"
-                            step="0.1"
-                            min="0"
-                            max="1"
-                        >
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <?php esc_html_e('Hover Effect', 'animate-gutenberg-gallery'); ?>
-                    </th>
-                    <td>
-                        <select name="agg_settings[hover_effect]">
-                            <option value="none" <?php selected($settings['hover_effect'], 'none'); ?>>
-                                <?php esc_html_e('None', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                            <option value="zoom" <?php selected($settings['hover_effect'], 'zoom'); ?>>
-                                <?php esc_html_e('Zoom', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                            <option value="lift" <?php selected($settings['hover_effect'], 'lift'); ?>>
-                                <?php esc_html_e('Lift Up', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                            <option value="tilt" <?php selected($settings['hover_effect'], 'tilt'); ?>>
-                                <?php esc_html_e('Tilt', 'animate-gutenberg-gallery'); ?>
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
+        <div class="agg-settings-content">
+            <div class="agg-main-settings">
+                <div class="agg-section">
+                    <h2 class="agg-section-title"><?php esc_html_e('Animation Effects', 'animate-gutenberg-gallery'); ?></h2>
+                    <div class="agg-button-group">
+                        <?php
+                        $effects = [
+                            'none' => 'None',
+                            'fade' => 'Fade In',
+                            'fade-up' => 'Fade Up',
+                            'fade-left' => 'Fade Left',
+                            'zoom' => 'Zoom In'
+                        ];
+                        foreach ($effects as $value => $label) : ?>
+                            <button type="button" 
+                                    class="agg-button <?php echo $settings['animation_type'] === $value ? 'active' : ''; ?>"
+                                    data-value="<?php echo esc_attr($value); ?>">
+                                <?php echo esc_html($label); ?>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                    <input type="hidden" name="agg_settings[animation_type]" id="animation_type" value="<?php echo esc_attr($settings['animation_type']); ?>">
+
+                    <h2 class="agg-section-title"><?php esc_html_e('Animation Timing', 'animate-gutenberg-gallery'); ?></h2>
+                    <div class="agg-input-group">
+                        <label class="agg-input-label">
+                            <?php esc_html_e('Duration (seconds)', 'animate-gutenberg-gallery'); ?>
+                        </label>
+                        <input type="number" 
+                               class="agg-input"
+                               name="agg_settings[animation_duration]" 
+                               value="<?php echo esc_attr($settings['animation_duration']); ?>"
+                               step="0.1"
+                               min="0.1"
+                               max="3">
+                        <span class="agg-input-hint">Min: 0.1s, Max: 3s</span>
+                    </div>
+
+                    <div class="agg-input-group">
+                        <label class="agg-input-label">
+                            <?php esc_html_e('Stagger Delay', 'animate-gutenberg-gallery'); ?>
+                        </label>
+                        <input type="number"
+                               class="agg-input"
+                               name="agg_settings[animation_stagger]" 
+                               value="<?php echo esc_attr($settings['animation_stagger']); ?>"
+                               step="0.1"
+                               min="0"
+                               max="1">
+                        <span class="agg-input-hint">Min: 0s, Max: 1s</span>
+                    </div>
+                </div>
+
+                <div class="agg-section">
+                    <h2 class="agg-section-title"><?php esc_html_e('Hover Effects', 'animate-gutenberg-gallery'); ?></h2>
+                    <div class="agg-button-group">
+                        <?php
+                        $hover_effects = [
+                            'none' => 'None',
+                            'zoom' => 'Zoom',
+                            'lift' => 'Lift Up',
+                            'tilt' => '3D Tilt'
+                        ];
+                        foreach ($hover_effects as $value => $label) : ?>
+                            <button type="button" 
+                                    class="agg-button <?php echo $settings['hover_effect'] === $value ? 'active' : ''; ?>"
+                                    data-value="<?php echo esc_attr($value); ?>">
+                                <?php echo esc_html($label); ?>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                    <input type="hidden" name="agg_settings[hover_effect]" id="hover_effect" value="<?php echo esc_attr($settings['hover_effect']); ?>">
+                </div>
+
+                <?php submit_button(); ?>
+            </div>
+
+            <div class="agg-preview-section">
+                <h2 class="agg-section-title"><?php esc_html_e('Live Preview', 'animate-gutenberg-gallery'); ?></h2>
+                <div class="agg-preview-flex">
+                    <div class="agg-preview-item" id="preview-1">
+                        <img src="<?php echo esc_url(AGG_PLUGIN_URL . 'assets/images/preview.webp'); ?>" alt="Preview 1">
+                    </div>
+                    <div class="agg-preview-item" id="preview-2">
+                        <img src="<?php echo esc_url(AGG_PLUGIN_URL . 'assets/images/preview2.webp'); ?>" alt="Preview 2">
+                    </div>
+                </div>
+                <button type="button" class="agg-button agg-preview-button">
+                    <?php esc_html_e('Play Animation', 'animate-gutenberg-gallery'); ?>
+                </button>
+            </div>
         </div>
-
-        <?php submit_button(); ?>
     </form>
+
+    <footer class="agg-footer">
+        <p>
+            <?php esc_html_e('Need help? Contact support at', 'animate-gutenberg-gallery'); ?>
+            <a href="mailto:support@matysiewicz.studio">support@matysiewicz.studio</a>
+        </p>
+    </footer>
 </div>

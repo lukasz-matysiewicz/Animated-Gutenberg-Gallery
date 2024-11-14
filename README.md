@@ -49,9 +49,10 @@ For support inquiries:
 wersje jezykowe
 detect classy -product page
 key detect
-- 1.0.3: Add hover effects
-- 1.0.2: Add fade in effects
-- 1.0.1: Add lightbox functionality
+- 1.0.4: Add Live Preview
+- 1.0.3: Add Hover Effects
+- 1.0.2: Add Animation Effects
+- 1.0.1: Add Lightbox Functionality
 - 1.0.0: Initial release
 
 ## Credits

@@ -9,10 +9,15 @@ namespace AGG\Core;
 
 class AGG_Activator {
     public static function activate() {
-        // Set version
-        add_option('agg_version', AGG_VERSION);
+        $default_options = array(
+            'animation_type' => 'zoom',
+            'animation_duration' => 1,
+            'animation_stagger' => 0.2,
+            'hover_effect' => 'zoom'
+        );
 
-        // Clear permalinks
+        add_option('agg_settings', $default_options);
+        add_option('agg_version', AGG_VERSION);
         flush_rewrite_rules();
     }
 }
