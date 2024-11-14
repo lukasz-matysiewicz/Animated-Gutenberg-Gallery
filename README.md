@@ -46,9 +46,8 @@ For support inquiries:
 - Website: https://matysiewicz.studio
 
 ## Version History
-wersje jezykowe
-detect classy -product page
-key detect
+In Future: Compatibile with Polyland and WPML
+- 1.0.5: CSS fixes
 - 1.0.4: Add Live Preview
 - 1.0.3: Add Hover Effects
 - 1.0.2: Add Animation Effects
