@@ -3,11 +3,17 @@
  * @package    AnimateGutenbergGallery
  * @author     Matysiewicz Studio <support@matysiewicz.studio>
  * @copyright  Copyright (c) 2024 Matysiewicz Studio
+ * 
+ * This is a commercial plugin, licensed under CodeCanyon's Regular/Extended License.
+ * For full license details see: https://codecanyon.net/licenses/terms/regular
  */
 
-if (!defined('ABSPATH')) {
+if (!defined('ABSPATH') || !current_user_can('manage_options')) {
     exit;
 }
+
+// Add nonce field
+wp_nonce_field('agg_settings_action', 'agg_settings_nonce');
 
 $settings = get_option('agg_settings', array(
     'animation_type' => 'zoom',
@@ -30,11 +36,11 @@ $settings = get_option('agg_settings', array(
                     <div class="agg-button-group">
                         <?php
                         $effects = [
-                            'none' => 'None',
-                            'fade' => 'Fade In',
-                            'fade-up' => 'Fade Up',
-                            'fade-left' => 'Fade Left',
-                            'zoom' => 'Zoom In'
+                            'none' => esc_html__('None', 'animate-gutenberg-gallery'),
+                            'fade' => esc_html__('Fade In', 'animate-gutenberg-gallery'),
+                            'fade-up' => esc_html__('Fade Up', 'animate-gutenberg-gallery'),
+                            'fade-left' => esc_html__('Fade Left', 'animate-gutenberg-gallery'),
+                            'zoom' => esc_html__('Zoom In', 'animate-gutenberg-gallery')
                         ];
                         foreach ($effects as $value => $label) : ?>
                             <button type="button" 
@@ -58,7 +64,7 @@ $settings = get_option('agg_settings', array(
                                step="0.1"
                                min="0.1"
                                max="3">
-                        <span class="agg-input-hint">Min: 0.1s, Max: 3s</span>
+                        <span class="agg-input-hint"><?php echo esc_html__('Min: 0.1s, Max: 3s', 'animate-gutenberg-gallery'); ?></span>
                     </div>
 
                     <div class="agg-input-group">
@@ -72,7 +78,7 @@ $settings = get_option('agg_settings', array(
                                step="0.1"
                                min="0"
                                max="1">
-                        <span class="agg-input-hint">Min: 0s, Max: 1s</span>
+                        <span class="agg-input-hint"><?php echo esc_html__('Min: 0s, Max: 1s', 'animate-gutenberg-gallery'); ?></span>
                     </div>
                 </div>
 
@@ -81,10 +87,10 @@ $settings = get_option('agg_settings', array(
                     <div class="agg-button-group">
                         <?php
                         $hover_effects = [
-                            'none' => 'None',
-                            'zoom' => 'Zoom',
-                            'lift' => 'Lift Up',
-                            'tilt' => '3D Tilt'
+                            'none' => esc_html__('None', 'animate-gutenberg-gallery'),
+                            'zoom' => esc_html__('Zoom', 'animate-gutenberg-gallery'),
+                            'lift' => esc_html__('Lift Up', 'animate-gutenberg-gallery'),
+                            'tilt' => esc_html__('3D Tilt', 'animate-gutenberg-gallery')
                         ];
                         foreach ($hover_effects as $value => $label) : ?>
                             <button type="button" 
@@ -97,17 +103,17 @@ $settings = get_option('agg_settings', array(
                     <input type="hidden" name="agg_settings[hover_effect]" id="hover_effect" value="<?php echo esc_attr($settings['hover_effect']); ?>">
                 </div>
 
-                <?php submit_button(); ?>
+                <?php submit_button(esc_html__('Save Changes', 'animate-gutenberg-gallery')); ?>
             </div>
 
             <div class="agg-preview-section">
                 <h2 class="agg-section-title"><?php esc_html_e('Live Preview', 'animate-gutenberg-gallery'); ?></h2>
                 <div class="agg-preview-flex">
                     <div class="agg-preview-item" id="preview-1">
-                        <img src="<?php echo esc_url(AGG_PLUGIN_URL . 'assets/images/preview.webp'); ?>" alt="Preview 1">
+                        <img src="<?php echo esc_url(AGG_PLUGIN_URL . 'assets/images/preview.webp'); ?>" alt="<?php echo esc_attr__('Preview 1', 'animate-gutenberg-gallery'); ?>">
                     </div>
                     <div class="agg-preview-item" id="preview-2">
-                        <img src="<?php echo esc_url(AGG_PLUGIN_URL . 'assets/images/preview2.webp'); ?>" alt="Preview 2">
+                        <img src="<?php echo esc_url(AGG_PLUGIN_URL . 'assets/images/preview2.webp'); ?>" alt="<?php echo esc_attr__('Preview 2', 'animate-gutenberg-gallery'); ?>">
                     </div>
                 </div>
                 <button type="button" class="agg-button agg-preview-button">
@@ -119,7 +125,7 @@ $settings = get_option('agg_settings', array(
 
     <footer class="agg-footer">
         <p>
-            <?php esc_html_e('Need help? Contact support at', 'animate-gutenberg-gallery'); ?>
+            <?php echo esc_html__('Need help? Contact support at', 'animate-gutenberg-gallery'); ?>
             <a href="mailto:support@matysiewicz.studio">support@matysiewicz.studio</a>
         </p>
     </footer>

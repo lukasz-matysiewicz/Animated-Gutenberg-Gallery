@@ -9,13 +9,17 @@
  */
 
 // If uninstall not called from WordPress, then exit.
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+if (!defined('WP_UNINSTALL_PLUGIN')) {
     exit;
 }
 
-// Delete plugin options
-delete_option( 'agg_settings' );
+// Delete options
+delete_option('agg_settings');
+delete_option('agg_version');
 
-// Delete any custom post types and taxonomies data if needed
-// global $wpdb;
-// $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type = 'your_custom_post_type'" );
+// Clean up any transients
+delete_transient('agg_cache');
+
+// Clean up post meta if any
+global $wpdb;
+$wpdb->delete($wpdb->postmeta, ['meta_key' => 'agg_gallery_settings']);

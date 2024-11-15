@@ -1,6 +1,8 @@
+// /assets/js/agg-editor.js
 const { createHigherOrderComponent } = wp.compose;
 const { InspectorControls } = wp.blockEditor || wp.editor;
 const { PanelBody, ExternalLink } = wp.components;
+const { __ } = wp.i18n;
 
 const withAGGSettings = createHigherOrderComponent((BlockEdit) => {
     return (props) => {
@@ -18,13 +20,13 @@ const withAGGSettings = createHigherOrderComponent((BlockEdit) => {
                 wp.element.createElement(
                     PanelBody,
                     {
-                        title: 'Animations',
+                        title: __('Animations', 'animate-gutenberg-gallery'),
                         initialOpen: false,
                     },
                     wp.element.createElement(
                         ExternalLink,
                         { href: aggEditorSettings.aggSettingsUrl },
-                        'AG Gallery Settings'
+                        __('AG Gallery Settings', 'animate-gutenberg-gallery')
                     )
                 )
             )

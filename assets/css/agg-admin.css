@@ -22,6 +22,10 @@
     padding-bottom: 1rem;
     display: inline-block;
 }
+h1.agg-admin-title {
+    font-size: 2.5rem!important;
+    font-weight: bold;
+}
 
 .agg-section {
     margin-bottom: 3rem;

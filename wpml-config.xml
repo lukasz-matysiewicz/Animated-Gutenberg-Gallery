@@ -1,0 +1,8 @@
+<wpml-config>
+    <admin-texts>
+        <key name="agg_settings">
+            <key name="animation_type" />
+            <key name="hover_effect" />
+        </key>
+    </admin-texts>
+</wpml-config>

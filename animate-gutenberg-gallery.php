@@ -3,7 +3,9 @@
  * Plugin Name: Animate Gutenberg Gallery
  * Plugin URI: https://matysiewicz.studio/animate-gutenberg-gallery
  * Description: Add beautiful GSAP animations to Gutenberg gallery blocks
- * Version: 1.0.0
+ * Requires at least: 5.0
+ * Requires PHP: 7.4
+ * Version: 1.0.6
  * Author: Matysiewicz Studio
  * Author URI: https://matysiewicz.studio
  * License: Regular License or Extended License

@@ -3,6 +3,9 @@
  * @package    AnimateGutenbergGallery
  * @author     Matysiewicz Studio <support@matysiewicz.studio>
  * @copyright  Copyright (c) 2024 Matysiewicz Studio
+ * 
+ * This is a commercial plugin, licensed under CodeCanyon's Regular/Extended License.
+ * For full license details see: https://codecanyon.net/licenses/terms/regular
  */
 
 namespace AGG\Core;
@@ -16,11 +19,14 @@ class AGG_Init {
     }
 
     private function define_hooks() {
-        // Initialize core components
+        // Initialize i18n first
+        $plugin_i18n = new AGG_i18n();
+        $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
+    
+        // Rest of initialization
         new AGG_Assets();
         new AGG_Gallery();
         
-        // Initialize admin
         if (is_admin()) {
             new \AGG\Admin\AGG_Admin();
         }
