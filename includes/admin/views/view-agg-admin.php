@@ -66,20 +66,6 @@ $settings = get_option('agg_settings', array(
                                max="3">
                         <span class="agg-input-hint"><?php echo esc_html__('Min: 0.1s, Max: 3s', 'animate-gutenberg-gallery'); ?></span>
                     </div>
-
-                    <div class="agg-input-group">
-                        <label class="agg-input-label">
-                            <?php esc_html_e('Stagger Delay', 'animate-gutenberg-gallery'); ?>
-                        </label>
-                        <input type="number"
-                               class="agg-input"
-                               name="agg_settings[animation_stagger]" 
-                               value="<?php echo esc_attr($settings['animation_stagger']); ?>"
-                               step="0.1"
-                               min="0"
-                               max="1">
-                        <span class="agg-input-hint"><?php echo esc_html__('Min: 0s, Max: 1s', 'animate-gutenberg-gallery'); ?></span>
-                    </div>
                 </div>
 
                 <div class="agg-section">

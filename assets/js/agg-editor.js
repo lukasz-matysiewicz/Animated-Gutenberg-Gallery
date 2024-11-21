@@ -1,14 +1,19 @@
-// /assets/js/agg-editor.js
 const { createHigherOrderComponent } = wp.compose;
 const { InspectorControls } = wp.blockEditor || wp.editor;
-const { PanelBody, ExternalLink } = wp.components;
+const { PanelBody, ToggleControl } = wp.components;
 const { __ } = wp.i18n;
 
-const withAGGSettings = createHigherOrderComponent((BlockEdit) => {
+const withGalleryControls = createHigherOrderComponent((BlockEdit) => {
     return (props) => {
         if (props.name !== 'core/gallery') {
             return wp.element.createElement(BlockEdit, props);
         }
+
+        const { attributes, setAttributes } = props;
+        
+        // Default both features to ON if not set
+        const lightboxEnabled = attributes.aggLightbox !== false;
+        const animationsEnabled = attributes.aggAnimations !== false;
 
         return wp.element.createElement(
             wp.element.Fragment,
@@ -19,23 +24,25 @@ const withAGGSettings = createHigherOrderComponent((BlockEdit) => {
                 null,
                 wp.element.createElement(
                     PanelBody,
-                    {
-                        title: __('Animations', 'animate-gutenberg-gallery'),
-                        initialOpen: false,
-                    },
-                    wp.element.createElement(
-                        ExternalLink,
-                        { href: aggEditorSettings.aggSettingsUrl },
-                        __('AG Gallery Settings', 'animate-gutenberg-gallery')
-                    )
+                    { title: __('Gallery Effects', 'animate-gutenberg-gallery') },
+                    wp.element.createElement(ToggleControl, {
+                        label: __('Enable Lightbox', 'animate-gutenberg-gallery'),
+                        checked: lightboxEnabled,
+                        onChange: (value) => setAttributes({ aggLightbox: value })
+                    }),
+                    wp.element.createElement(ToggleControl, {
+                        label: __('Enable Animations', 'animate-gutenberg-gallery'),
+                        checked: animationsEnabled,
+                        onChange: (value) => setAttributes({ aggAnimations: value })
+                    })
                 )
             )
         );
     };
-}, 'withAGGSettings');
+}, 'withGalleryControls');
 
 wp.hooks.addFilter(
     'editor.BlockEdit',
-    'agg/with-settings',
-    withAGGSettings
+    'agg/gallery-controls',
+    withGalleryControls
 );

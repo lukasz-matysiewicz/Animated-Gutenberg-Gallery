@@ -5,81 +5,6 @@
         const buttonGroups = document.querySelectorAll('.agg-button-group');
         const previewButton = document.querySelector('.agg-preview-button');
         const previewItems = document.querySelectorAll('.agg-preview-item');
-        const modal = createModal();
-
-        function createModal() {
-            const modal = document.createElement('div');
-            modal.id = 'aggGallery';
-            modal.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 999999;';
-            
-            const content = document.createElement('div');
-            content.id = 'aggGallery-content';
-            content.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;';
-            
-            const img = document.createElement('img');
-            img.id = 'aggGallery-image';
-            img.style.cssText = 'max-width: 90%; max-height: 90vh; object-fit: contain;';
-            
-            const closeBtn = document.createElement('span');
-            closeBtn.id = 'aggGallery-close';
-            closeBtn.innerHTML = '&times;';
-            closeBtn.style.cssText = 'position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 10000;';
-        
-            const prevBtn = document.createElement('span');
-            prevBtn.id = 'aggGallery-prev';
-            prevBtn.innerHTML = '&#10094;';
-            prevBtn.style.cssText = 'position: absolute; left: 30px; top: 50%; transform: translateY(-50%); color: #fff; font-size: 60px; cursor: pointer; z-index: 10000;';
-        
-            const nextBtn = document.createElement('span');
-            nextBtn.id = 'aggGallery-next';
-            nextBtn.innerHTML = '&#10095;';
-            nextBtn.style.cssText = 'position: absolute; right: 30px; top: 50%; transform: translateY(-50%); color: #fff; font-size: 60px; cursor: pointer; z-index: 10000;';
-        
-            content.appendChild(img);
-            modal.appendChild(content);
-            modal.appendChild(closeBtn);
-            modal.appendChild(prevBtn);
-            modal.appendChild(nextBtn);
-            document.body.appendChild(modal);
-        
-            let currentIndex = 0;
-            const previewImages = Array.from(document.querySelectorAll('.agg-preview-item img'));
-        
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-        
-            prevBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                currentIndex = (currentIndex - 1 + previewImages.length) % previewImages.length;
-                img.src = previewImages[currentIndex].src;
-            });
-        
-            nextBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                currentIndex = (currentIndex + 1) % previewImages.length;
-                img.src = previewImages[currentIndex].src;
-            });
-        
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal || e.target === content) {
-                    modal.style.display = 'none';
-                }
-            });
-        
-            return { modal, img, setIndex: (index) => { currentIndex = index; } };
-        }
-
-        // Setup lightbox clicks
-        previewItems.forEach((item, index) => {
-            const img = item.querySelector('img');
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => {
-                modal.img.src = img.src;
-                modal.setIndex(index);
-                modal.modal.style.display = 'flex';
-            });
-        });
 
         buttonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.agg-button');
@@ -104,7 +29,6 @@
             previewButton.addEventListener('click', function() {
                 const animationType = document.getElementById('animation_type').value;
                 const duration = parseFloat(document.querySelector('input[name="agg_settings[animation_duration]"]').value);
-                const stagger = parseFloat(document.querySelector('input[name="agg_settings[animation_stagger]"]').value);
 
                 gsap.set(previewItems, { clearProps: "all" });
 
@@ -112,24 +36,21 @@
                     case 'fade':
                         gsap.from(previewItems, {
                             opacity: 0,
-                            duration: duration,
-                            stagger: stagger
+                            duration: duration
                         });
                         break;
                     case 'fade-up':
                         gsap.from(previewItems, {
                             opacity: 0,
                             y: 50,
-                            duration: duration,
-                            stagger: stagger
+                            duration: duration
                         });
                         break;
                     case 'fade-left':
                         gsap.from(previewItems, {
                             opacity: 0,
                             x: -50,
-                            duration: duration,
-                            stagger: stagger
+                            duration: duration
                         });
                         break;
                     case 'zoom':
@@ -137,13 +58,11 @@
                             opacity: 0,
                             scale: 0.5,
                             duration: duration,
-                            stagger: stagger,
                             ease: "back.out(1.7)"
                         });
                         break;
                 }
 
-                // Re-apply hover effect after animation
                 const hoverEffect = document.getElementById('hover_effect').value;
                 updateHoverEffects(hoverEffect);
             });
@@ -199,7 +118,6 @@
             });
         }
 
-        // Initialize hover effects
         const initialHoverEffect = document.getElementById('hover_effect').value;
         updateHoverEffects(initialHoverEffect);
     });

@@ -11,13 +11,26 @@
  namespace AGG\Admin;
  
  class AGG_Admin {
-     public function __construct() {
-         add_action('admin_menu', [$this, 'add_plugin_admin_menu']);
-         add_action('admin_init', [$this, 'register_settings']);
-         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_scripts']);
-     }
- 
-     public function add_plugin_admin_menu() {
+    public function __construct() {
+        add_action('admin_menu', [$this, 'add_plugin_admin_menu']);
+        add_action('admin_init', [$this, 'register_settings']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_scripts']);
+        
+        // Notices control
+        add_action('admin_head', function() {
+            $screen = get_current_screen();
+            if ($screen && $screen->id === 'toplevel_page_animate-gutenberg-gallery') {
+                remove_all_actions('admin_notices');
+                remove_all_actions('all_admin_notices');
+                add_action('admin_notices', [$this, 'agg_admin_notices']);
+            }
+        });
+    }
+    public function agg_admin_notices() {
+        // Your plugin's notices only
+        settings_errors('agg_settings');
+    }
+    public function add_plugin_admin_menu() {
          // Capability check
          if (!current_user_can('manage_options')) {
              return;
@@ -34,7 +47,7 @@
          );
      }
  
-     public function register_settings() {
+    public function register_settings() {
          register_setting(
              'agg_options',
              'agg_settings',
@@ -79,39 +92,36 @@
         }
     }
  
-     public function sanitize_settings($input) {
-         try {
-             $sanitized = [];
-             
-             // Animation type
-             $sanitized['animation_type'] = in_array($input['animation_type'], ['none', 'fade', 'fade-up', 'fade-left', 'zoom']) 
-                 ? $input['animation_type'] 
-                 : 'fade';
- 
-             // Animation duration (between 0.1 and 3)
-             $sanitized['animation_duration'] = floatval($input['animation_duration']);
-             $sanitized['animation_duration'] = max(0.1, min(3, $sanitized['animation_duration']));
- 
-             // Animation stagger (between 0 and 1)
-             $sanitized['animation_stagger'] = floatval($input['animation_stagger']);
-             $sanitized['animation_stagger'] = max(0, min(1, $sanitized['animation_stagger']));
- 
-             // Hover effect
-             $sanitized['hover_effect'] = in_array($input['hover_effect'], ['none', 'zoom', 'lift', 'tilt']) 
-                 ? $input['hover_effect'] 
-                 : 'zoom';
- 
-             return $sanitized;
-         } catch (\Exception $e) {
-             add_settings_error(
-                 'agg_settings',
-                 'agg_settings_error',
-                 __('Error saving settings. Please try again.', 'animate-gutenberg-gallery')
-             );
-             return get_option('agg_settings');
-         }
-     }
-     public function register_strings_for_translation() {
+    public function sanitize_settings($input) {
+        try {
+            $sanitized = [];
+            
+            // Animation type
+            $sanitized['animation_type'] = in_array($input['animation_type'], ['none', 'fade', 'fade-up', 'fade-left', 'zoom']) 
+                ? $input['animation_type'] 
+                : 'fade';
+    
+            // Animation duration (between 0.1 and 3)
+            $sanitized['animation_duration'] = floatval($input['animation_duration']);
+            $sanitized['animation_duration'] = max(0.1, min(3, $sanitized['animation_duration']));
+    
+            // Hover effect
+            $sanitized['hover_effect'] = in_array($input['hover_effect'], ['none', 'zoom', 'lift', 'tilt']) 
+                ? $input['hover_effect'] 
+                : 'zoom';
+    
+            return $sanitized;
+        } catch (\Exception $e) {
+            add_settings_error(
+                'agg_settings',
+                'agg_settings_error',
+                __('Error saving settings. Please try again.', 'animate-gutenberg-gallery')
+            );
+            return get_option('agg_settings');
+        }
+    }
+
+    public function register_strings_for_translation() {
         if (function_exists('pll_register_string')) {
             // Polylang registration
             pll_register_string('animation_effects', 'Animation Effects', 'animate-gutenberg-gallery');
@@ -124,7 +134,7 @@
             do_action('wpml_register_single_string', 'animate-gutenberg-gallery', 'animation_duration', 'Animation Duration');
         }
     }
-     public function display_plugin_admin_page() {
+    public function display_plugin_admin_page() {
          // Security checks
          if (!current_user_can('manage_options')) {
              wp_die(__('You do not have sufficient permissions to access this page.', 'animate-gutenberg-gallery'));

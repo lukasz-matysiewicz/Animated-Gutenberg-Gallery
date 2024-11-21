@@ -76,6 +76,10 @@ For support inquiries:
 - Website: https://matysiewicz.studio
 
 ## Version History
+- 1.1.0: Lightbox works asynchronously to fade animations
+- 1.0.9: Remove effects on single images
+- 1.0.8: Add Switcher on/off to Galleries
+- 1.0.7: Add lazy load animation, 
 - 1.0.6: Compatible with Polylang and WPML
 - 1.0.5: CSS fixes
 - 1.0.4: Add Live Preview

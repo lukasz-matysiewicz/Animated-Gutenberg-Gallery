@@ -5,7 +5,7 @@
  * Description: Add beautiful GSAP animations to Gutenberg gallery blocks
  * Requires at least: 5.0
  * Requires PHP: 7.4
- * Version: 1.0.6
+ * Version: 1.1.0
  * Author: Matysiewicz Studio
  * Author URI: https://matysiewicz.studio
  * License: Regular License or Extended License
@@ -26,7 +26,7 @@ if (!defined('WPINC')) {
 /**
  * Current plugin version.
  */
-define('AGG_VERSION', '1.0.0');
+define('AGG_VERSION', '1.1.0');
 define('AGG_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('AGG_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('AGG_PLUGIN_BASENAME', plugin_basename(__FILE__));
