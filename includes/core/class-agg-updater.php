@@ -1,4 +1,13 @@
 <?php
+/**
+ * @package    AnimatedGutenbergGallery
+ * @author     Matysiewicz Studio <support@matysiewicz.studio>
+ * @copyright  Copyright (c) 2024 Matysiewicz Studio
+ * 
+ * This is a commercial plugin, licensed under CodeCanyon's Regular/Extended License.
+ * For full license details see: https://codecanyon.net/licenses/terms/regular
+ */
+
 namespace AGG\Core;
 
 class AGG_Updater {
@@ -40,7 +49,7 @@ class AGG_Updater {
 
     private function get_remote_info() {
         // Replace with your actual update server URL
-        $request = wp_remote_get('https://your-update-server.com/updates/animate-gutenberg-gallery/info.json');
+        $request = wp_remote_get('https://your-update-server.com/updates/animated-gutenberg-gallery/info.json');
 
         if (!is_wp_error($request) && wp_remote_retrieve_response_code($request) === 200) {
             return json_decode(wp_remote_retrieve_body($request));

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    AnimateGutenbergGallery
+ * @package    AnimatedGutenbergGallery
  * @author     Matysiewicz Studio <support@matysiewicz.studio>
  * @copyright  Copyright (c) 2024 Matysiewicz Studio
  * 
@@ -19,7 +19,7 @@ class AGG_i18n {
      */
     public function load_plugin_textdomain() {
         load_plugin_textdomain(
-            'animate-gutenberg-gallery',
+            'animated-gutenberg-gallery',
             false,
             dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
         );

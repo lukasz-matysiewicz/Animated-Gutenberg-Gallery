@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    AnimateGutenbergGallery
+ * @package    AnimatedGutenbergGallery
  * @author     Matysiewicz Studio <support@matysiewicz.studio>
  * @copyright  Copyright (c) 2024 Matysiewicz Studio
  * 

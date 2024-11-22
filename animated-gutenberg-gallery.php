@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Name: Animate Gutenberg Gallery
- * Plugin URI: https://matysiewicz.studio/animate-gutenberg-gallery
+ * Plugin Name: Animated Gutenberg Gallery
+ * Plugin URI: https://matysiewicz.studio/animated-gutenberg-gallery
  * Description: Add beautiful GSAP animations to Gutenberg gallery blocks
  * Requires at least: 5.0
  * Requires PHP: 7.4
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Matysiewicz Studio
  * Author URI: https://matysiewicz.studio
  * License: Regular License or Extended License
  * License URI: https://codecanyon.net/licenses/standard
- * Text Domain: animate-gutenberg-gallery
+ * Text Domain: animated-gutenberg-gallery
  * Domain Path: /languages
  * 
- * @package AnimateGutenbergGallery
+ * @package AnimatedGutenbergGallery
  * @author Matysiewicz Studio
  * @copyright Copyright (c) 2024, Matysiewicz Studio
  */
@@ -26,7 +26,7 @@ if (!defined('WPINC')) {
 /**
  * Current plugin version.
  */
-define('AGG_VERSION', '1.1.0');
+define('AGG_VERSION', '1.1.1');
 define('AGG_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('AGG_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('AGG_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -62,7 +62,7 @@ spl_autoload_register(function ($class) {
 /**
  * The code that runs during plugin activation.
  */
-function activate_animate_gutenberg_gallery() {
+function activate_animated_gutenberg_gallery() {
     require_once AGG_PLUGIN_DIR . 'includes/core/class-agg-activator.php';
     AGG\Core\AGG_Activator::activate();
 }
@@ -70,20 +70,20 @@ function activate_animate_gutenberg_gallery() {
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_animate_gutenberg_gallery() {
+function deactivate_animated_gutenberg_gallery() {
     require_once AGG_PLUGIN_DIR . 'includes/core/class-agg-deactivator.php';
     AGG\Core\AGG_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'activate_animate_gutenberg_gallery');
-register_deactivation_hook(__FILE__, 'deactivate_animate_gutenberg_gallery');
+register_activation_hook(__FILE__, 'activate_animated_gutenberg_gallery');
+register_deactivation_hook(__FILE__, 'deactivate_animated_gutenberg_gallery');
 
 /**
  * Begins execution of the plugin.
  */
-function run_animate_gutenberg_gallery() {
+function run_animated_gutenberg_gallery() {
     require_once AGG_PLUGIN_DIR . 'includes/core/class-agg-init.php';
     $plugin = new AGG\Core\AGG_Init();
     $plugin->run();
 }
-run_animate_gutenberg_gallery();
+run_animated_gutenberg_gallery();

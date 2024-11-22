@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    AnimateGutenbergGallery
+ * @package    AnimatedGutenbergGallery
  * @author     Matysiewicz Studio <support@matysiewicz.studio>
  * @copyright  Copyright (c) 2024 Matysiewicz Studio
  * 
@@ -64,7 +64,7 @@ class AGG_Assets {
     }
 
     public function register_admin_assets($hook) {
-        if (strpos($hook, 'animate-gutenberg-gallery') !== false) {
+        if (strpos($hook, 'animated-gutenberg-gallery') !== false) {
             wp_enqueue_style(
                 'agg-admin',
                 AGG_PLUGIN_URL . 'assets/css/agg-admin.css',

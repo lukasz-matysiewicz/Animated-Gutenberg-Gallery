@@ -24,14 +24,14 @@ const withGalleryControls = createHigherOrderComponent((BlockEdit) => {
                 null,
                 wp.element.createElement(
                     PanelBody,
-                    { title: __('Gallery Effects', 'animate-gutenberg-gallery') },
+                    { title: __('Gallery Effects', 'animated-gutenberg-gallery') },
                     wp.element.createElement(ToggleControl, {
-                        label: __('Enable Lightbox', 'animate-gutenberg-gallery'),
+                        label: __('Enable Lightbox', 'animated-gutenberg-gallery'),
                         checked: lightboxEnabled,
                         onChange: (value) => setAttributes({ aggLightbox: value })
                     }),
                     wp.element.createElement(ToggleControl, {
-                        label: __('Enable Animations', 'animate-gutenberg-gallery'),
+                        label: __('Enable Animations', 'animated-gutenberg-gallery'),
                         checked: animationsEnabled,
                         onChange: (value) => setAttributes({ aggAnimations: value })
                     })

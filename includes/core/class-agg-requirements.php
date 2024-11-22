@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    AnimateGutenbergGallery
+ * @package    AnimatedGutenbergGallery
  * @author     Matysiewicz Studio <support@matysiewicz.studio>
  * @copyright  Copyright (c) 2024 Matysiewicz Studio
  * 
@@ -20,14 +20,14 @@ class AGG_Requirements {
 
         if (!self::check_php_version()) {
             $errors[] = sprintf(
-                __('AG Gallery requires PHP version %s or higher.', 'animate-gutenberg-gallery'),
+                __('AG Gallery requires PHP version %s or higher.', 'animated-gutenberg-gallery'),
                 self::MIN_PHP_VERSION
             );
         }
 
         if (!self::check_wp_version()) {
             $errors[] = sprintf(
-                __('AG Gallery requires WordPress version %s or higher.', 'animate-gutenberg-gallery'),
+                __('AG Gallery requires WordPress version %s or higher.', 'animated-gutenberg-gallery'),
                 self::MIN_WP_VERSION
             );
         }

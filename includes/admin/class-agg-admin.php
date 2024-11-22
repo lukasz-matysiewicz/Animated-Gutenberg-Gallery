@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    AnimateGutenbergGallery
+ * @package    AnimatedGutenbergGallery
  * @author     Matysiewicz Studio <support@matysiewicz.studio>
  * @copyright  Copyright (c) 2024 Matysiewicz Studio
  * 
@@ -19,7 +19,7 @@
         // Notices control
         add_action('admin_head', function() {
             $screen = get_current_screen();
-            if ($screen && $screen->id === 'toplevel_page_animate-gutenberg-gallery') {
+            if ($screen && $screen->id === 'toplevel_page_animated-gutenberg-gallery') {
                 remove_all_actions('admin_notices');
                 remove_all_actions('all_admin_notices');
                 add_action('admin_notices', [$this, 'agg_admin_notices']);
@@ -37,10 +37,10 @@
          }
  
          add_menu_page(
-             __('AG Gallery', 'animate-gutenberg-gallery'),
-             __('AG Gallery', 'animate-gutenberg-gallery'),
+             __('AG Gallery', 'animated-gutenberg-gallery'),
+             __('AG Gallery', 'animated-gutenberg-gallery'),
              'manage_options',
-             'animate-gutenberg-gallery',
+             'animated-gutenberg-gallery',
              [$this, 'display_plugin_admin_page'],
              'dashicons-format-gallery',
              30
@@ -64,7 +64,7 @@
          );
      }
      public function enqueue_admin_scripts($hook) {
-        if (strpos($hook, 'animate-gutenberg-gallery') !== false) {
+        if (strpos($hook, 'animated-gutenberg-gallery') !== false) {
             // Register GSAP 
             wp_enqueue_script(
                 'gsap',
@@ -115,7 +115,7 @@
             add_settings_error(
                 'agg_settings',
                 'agg_settings_error',
-                __('Error saving settings. Please try again.', 'animate-gutenberg-gallery')
+                __('Error saving settings. Please try again.', 'animated-gutenberg-gallery')
             );
             return get_option('agg_settings');
         }
@@ -124,20 +124,20 @@
     public function register_strings_for_translation() {
         if (function_exists('pll_register_string')) {
             // Polylang registration
-            pll_register_string('animation_effects', 'Animation Effects', 'animate-gutenberg-gallery');
-            pll_register_string('animation_duration', 'Animation Duration', 'animate-gutenberg-gallery');
+            pll_register_string('animation_effects', 'Animation Effects', 'animated-gutenberg-gallery');
+            pll_register_string('animation_duration', 'Animation Duration', 'animated-gutenberg-gallery');
         }
     
         if (function_exists('icl_register_string')) {
             // WPML registration
-            do_action('wpml_register_single_string', 'animate-gutenberg-gallery', 'animation_effects', 'Animation Effects');
-            do_action('wpml_register_single_string', 'animate-gutenberg-gallery', 'animation_duration', 'Animation Duration');
+            do_action('wpml_register_single_string', 'animated-gutenberg-gallery', 'animation_effects', 'Animation Effects');
+            do_action('wpml_register_single_string', 'animated-gutenberg-gallery', 'animation_duration', 'Animation Duration');
         }
     }
     public function display_plugin_admin_page() {
          // Security checks
          if (!current_user_can('manage_options')) {
-             wp_die(__('You do not have sufficient permissions to access this page.', 'animate-gutenberg-gallery'));
+             wp_die(__('You do not have sufficient permissions to access this page.', 'animated-gutenberg-gallery'));
          }
  
          require_once AGG_PLUGIN_DIR . 'includes/admin/views/view-agg-admin.php';

@@ -28,7 +28,7 @@ Thumbs.db
 # WordPress
 wp-config.php
 wp-content/
-!wp-content/plugins/animate-gutenberg-gallery/
+!wp-content/plugins/animated-gutenberg-gallery/
 
 # Testing
 /tests/coverage/

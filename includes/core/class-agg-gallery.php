@@ -1,4 +1,13 @@
 <?php
+/**
+ * @package    AnimateddGutenbergGallery
+ * @author     Matysiewicz Studio <support@matysiewicz.studio>
+ * @copyright  Copyright (c) 2024 Matysiewicz Studio
+ * 
+ * This is a commercial plugin, licensed under CodeCanyon's Regular/Extended License.
+ * For full license details see: https://codecanyon.net/licenses/terms/regular
+ */
+
 namespace AGG\Core;
 
 class AGG_Gallery {
@@ -32,7 +41,7 @@ class AGG_Gallery {
     }
 
     public function add_editor_settings($settings) {
-        $settings['aggSettingsUrl'] = admin_url('admin.php?page=animate-gutenberg-gallery');
+        $settings['aggSettingsUrl'] = admin_url('admin.php?page=animated-gutenberg-gallery');
         return $settings;
     }
 
@@ -46,7 +55,7 @@ class AGG_Gallery {
         );
 
         wp_localize_script('agg-editor', 'aggEditorSettings', [
-            'aggSettingsUrl' => admin_url('admin.php?page=animate-gutenberg-gallery')
+            'aggSettingsUrl' => admin_url('admin.php?page=animated-gutenberg-gallery')
         ]);
     }
 }

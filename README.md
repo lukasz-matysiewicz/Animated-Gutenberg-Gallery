@@ -1,11 +1,11 @@
-# === Animate Gutenberg Gallery ===
+# === Animated Gutenberg Gallery ===
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.1.1
 License: GPL v2 or later
 
-# Animate Gutenberg Gallery
+# Animated Gutenberg Gallery
 
 Beautiful GSAP animations for WordPress Gutenberg gallery blocks.
 
@@ -23,7 +23,7 @@ Add professional animations and lightbox functionality to your WordPress gallery
 3. Configure settings under AG Gallery menu
 
 ## Installation
-1. Upload the plugin files to `/wp-content/plugins/animate-gutenberg-gallery`
+1. Upload the plugin files to `/wp-content/plugins/animated-gutenberg-gallery`
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->AG Gallery screen to configure the plugin
 
@@ -39,7 +39,7 @@ Add professional animations and lightbox functionality to your WordPress gallery
 
     ## Structure
 ```
-animate-gutenberg-gallery/
+animated-gutenberg-gallery/
 ├── assets/                 # Frontend resources
 │   ├── css/                # Stylesheets
 │   │   ├── agg-admin.css   # Admin styles
@@ -59,7 +59,7 @@ animate-gutenberg-gallery/
 │   │   └── ...
 │   └── frontend/           # Frontend functionality
 ├── languages/              # Translations
-└── animate-gutenberg-gallery.php
+└── animated-gutenberg-gallery.php
 ```
 
 ## Licensing
@@ -76,16 +76,17 @@ For support inquiries:
 - Website: https://matysiewicz.studio
 
 ## Version History
-- 1.1.0: Lightbox works asynchronously to fade animations
-- 1.0.9: Remove effects on single images
-- 1.0.8: Add Switcher on/off to Galleries
-- 1.0.7: Add lazy load animation, 
-- 1.0.6: Compatible with Polylang and WPML
-- 1.0.5: CSS fixes
-- 1.0.4: Add Live Preview
-- 1.0.3: Add Hover Effects
-- 1.0.2: Add Animation Effects
-- 1.0.1: Add Lightbox Functionality
+- 1.1.1: Added branding
+- 1.1.0: Lightbox works asynchronously with fade animations
+- 1.0.9: Removed effects on single images
+- 1.0.8: Added Switcher on/off to Galleries
+- 1.0.7: Added lazy load animation, 
+- 1.0.6: Added Compatibility with Polylang and WPML
+- 1.0.5: Added CSS fixes
+- 1.0.4: Added Live Preview
+- 1.0.3: Added Hover Effects
+- 1.0.2: Added Animation Effects
+- 1.0.1: Added Lightbox Functionality
 - 1.0.0: Initial release
 
 ## Credits
