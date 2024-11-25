@@ -1,9 +1,9 @@
 # === Animated Gutenberg Gallery ===
-Requires at least: 5.0
+Requires at least: 6.4
 Tested up to: 6.7
-Requires PHP: 7.4
+Requires PHP: 7.0
 Stable tag: 1.1.1
-License: GPL v2 or later
+License: Regular License: https://codecanyon.net/licenses/terms/regular
 
 # Animated Gutenberg Gallery
 
