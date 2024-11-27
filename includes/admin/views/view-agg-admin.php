@@ -40,13 +40,14 @@ $settings = get_option('agg_settings', array(
                     <h2 class="agg-section-title"><?php esc_html_e('Animation Effects', 'animated-gutenberg-gallery'); ?></h2>
                     <div class="agg-button-group">
                         <?php
-                        $effects = [
-                            'none' => esc_html__('None', 'animated-gutenberg-gallery'),
-                            'fade' => esc_html__('Fade In', 'animated-gutenberg-gallery'),
-                            'fade-up' => esc_html__('Fade Up', 'animated-gutenberg-gallery'),
-                            'fade-left' => esc_html__('Fade Left', 'animated-gutenberg-gallery'),
-                            'zoom' => esc_html__('Zoom In', 'animated-gutenberg-gallery')
-                        ];
+                            $effects = [
+                                'none' => esc_html__('None', 'animated-gutenberg-gallery'),
+                                'fade' => esc_html__('Fade In', 'animated-gutenberg-gallery'),
+                                'fade-up' => esc_html__('Fade Up', 'animated-gutenberg-gallery'),
+                                'fade-left' => esc_html__('Fade Left', 'animated-gutenberg-gallery'),
+                                'zoom' => esc_html__('Zoom In', 'animated-gutenberg-gallery'),
+                                'alternate-scroll' => esc_html__('Alternate Scroll', 'animated-gutenberg-gallery')
+                            ];
                         foreach ($effects as $value => $label) : ?>
                             <button type="button" 
                                     class="agg-button <?php echo $settings['animation_type'] === $value ? 'active' : ''; ?>"

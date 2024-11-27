@@ -35,6 +35,15 @@ class AGG_Assets {
             true
         );
 
+        // Register Lenis Scroll
+        wp_enqueue_script(
+            'lenis',
+            'https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js',
+            [],
+            '1.0.27',
+            true
+        );
+
         // Get animation settings
         $settings = get_option('agg_settings', array(
             'animation_type' => 'fade-up',

@@ -3,7 +3,8 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         gsap.registerPlugin(ScrollTrigger);
-        
+
+        // Get settings from PHP
         const settings = window.aggSettings || {
             animation_type: 'fade-up',
             animation_duration: 1,
@@ -11,12 +12,26 @@
             hover_effect: 'zoom'
         };
 
-        // Setup Lightbox
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+        lenis.on('scroll', ScrollTrigger.update);
+
         function setupLightbox() {
-            const lightboxGalleries = document.querySelectorAll('.wp-block-gallery.agg-lightbox');
             if (!document.getElementById('aggGallery')) {
                 const lightboxHtml = `
-                    <div id="aggGallery" style="display: none;">
+                    <div id="aggGallery">
                         <div id="aggGallery-content">
                             <img id="aggGallery-image" src="" alt="">
                             <span id="aggGallery-close">&times;</span>
@@ -29,12 +44,31 @@
             }
 
             const modal = document.getElementById('aggGallery');
+            const modalContent = document.getElementById('aggGallery-content');
             const modalImg = document.getElementById('aggGallery-image');
             const closeBtn = document.getElementById('aggGallery-close');
             const prevBtn = document.getElementById('aggGallery-prev');
             const nextBtn = document.getElementById('aggGallery-next');
             let currentGallery = null;
             let currentIndex = 0;
+
+            function showLightbox() {
+                modal.style.display = 'flex';
+                gsap.fromTo(modal, 
+                    { opacity: 0 }, 
+                    { opacity: 1, duration: 0.5 }
+                );
+            }
+
+            function hideLightbox() {
+                gsap.to(modal, {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        modal.style.display = 'none';
+                    }
+                });
+            }
 
             function getLargestImageURL(img) {
                 if (!img.srcset) return img.src;
@@ -54,6 +88,7 @@
                 modalImg.src = getLargestImageURL(images[currentIndex]);
             }
 
+            const lightboxGalleries = document.querySelectorAll('.wp-block-gallery.agg-lightbox');
             lightboxGalleries.forEach(gallery => {
                 const images = gallery.querySelectorAll('figure.wp-block-image img');
                 images.forEach((img, index) => {
@@ -63,12 +98,26 @@
                         currentGallery = gallery;
                         currentIndex = index;
                         modalImg.src = getLargestImageURL(img);
-                        modal.style.display = 'flex';
+                        showLightbox();
                     });
                 });
             });
 
-            // Keyboard navigation
+            closeBtn.onclick = hideLightbox;
+            modal.onclick = (e) => {
+                if (e.target === modal || e.target === modalContent) hideLightbox();
+            };
+            
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                navigateImage(-1);
+            };
+            
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                navigateImage(1);
+            };
+
             document.addEventListener('keydown', (e) => {
                 if (modal.style.display === 'none') return;
                 
@@ -80,34 +129,23 @@
                         navigateImage(1);
                         break;
                     case 'Escape':
-                        modal.style.display = 'none';
+                        hideLightbox();
                         break;
                 }
             });
-
-            closeBtn.onclick = () => modal.style.display = 'none';
-            modal.onclick = (e) => {
-                if (e.target === modal) modal.style.display = 'none';
-            };
-            prevBtn.onclick = (e) => {
-                e.stopPropagation();
-                navigateImage(-1);
-            };
-            nextBtn.onclick = (e) => {
-                e.stopPropagation();
-                navigateImage(1);
-            };
         }
 
         setupLightbox();
 
+
         // Setup Animations per figure instead of per gallery
         const animatedGalleries = document.querySelectorAll('.wp-block-gallery.agg-animated');
+
         animatedGalleries.forEach(gallery => {
             const figures = gallery.querySelectorAll('figure.wp-block-image');
             
-            figures.forEach(figure => {
-                const animationConfig = {
+            figures.forEach((figure, index) => {
+                let animationConfig = {
                     opacity: 0,
                     duration: settings.animation_duration,
                     scrollTrigger: {
@@ -128,6 +166,22 @@
                         animationConfig.scale = 0.5;
                         animationConfig.ease = "back.out(1.7)";
                         break;
+                    case 'alternate-scroll':
+                        // New animation type
+                        const initialY = index % 2 === 0 ? 100 : -100;
+                        gsap.set(figure, { y: initialY });
+                        
+                        gsap.to(figure, {
+                            y: 0,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: figure,
+                                start: 'top bottom',
+                                end: 'top center',
+                                scrub: true
+                            }
+                        });
+                        return; // Skip default animation
                 }
 
                 gsap.from(figure, animationConfig);

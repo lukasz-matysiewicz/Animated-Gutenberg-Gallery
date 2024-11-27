@@ -97,7 +97,7 @@
             $sanitized = [];
             
             // Animation type
-            $sanitized['animation_type'] = in_array($input['animation_type'], ['none', 'fade', 'fade-up', 'fade-left', 'zoom']) 
+            $sanitized['animation_type'] = in_array($input['animation_type'], ['none', 'fade', 'fade-up', 'fade-left', 'zoom', 'alternate-scroll']) 
                 ? $input['animation_type'] 
                 : 'fade';
     

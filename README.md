@@ -2,7 +2,7 @@
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.1.1
+Stable tag: 1.2.2
 License: Regular License: https://codecanyon.net/licenses/terms/regular
 
 # Animated Gutenberg Gallery
@@ -76,8 +76,9 @@ For support inquiries:
 - Website: https://matysiewicz.studio
 
 ## Version History
-- 1.1.1: Added branding
-- 1.1.0: Lightbox works asynchronously with fade animations
+- 1.2.2: Added Lenis Scroll and scroll effect
+- 1.2.1: Added branding
+- 1.2.0: Lightbox works asynchronously with fade animations
 - 1.0.9: Removed effects on single images
 - 1.0.8: Added Switcher on/off to Galleries
 - 1.0.7: Added lazy load animation, 
